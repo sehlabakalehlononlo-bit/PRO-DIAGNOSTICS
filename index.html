@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Pro Diagnostics | Expert Mobile Fault Finding</title>
+  <!-- Google Fonts for modern typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #000000;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #111;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Header */
+    header {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      background-color: #000000;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    /* Logo area - text only, no image at the top */
+    .logo {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+    .logo-text {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(120deg, #ffffff, #dddddd);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.02em;
+    }
+    .logo-badge {
+      font-size: 10px;
+      font-weight: 500;
+      background: #1f1f1f;
+      padding: 2px 6px;
+      border-radius: 30px;
+      margin-left: 6px;
+      color: #ccc;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: #f0f0f0;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: #ffffff;
+      border-bottom: 2px solid #ffffff;
+      padding-bottom: 6px;
+    }
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 28px;
+      color: white;
+      cursor: pointer;
+    }
+    /* Hero */
+    .hero {
+      padding: 80px 0 100px;
+      text-align: center;
+      background: radial-gradient(circle at 20% 30%, #0a0a0a, #000000);
+    }
+    .hero h1 {
+      font-size: 58px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 20px;
+      background: linear-gradient(to right, #ffffff, #b0b0b0);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hero p {
+      font-size: 20px;
+      max-width: 700px;
+      margin: 0 auto 32px;
+      color: #cccccc;
+    }
+    .trial-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid #2a2a2a;
+      backdrop-filter: blur(4px);
+      padding: 10px 24px;
+      border-radius: 60px;
+      margin-bottom: 30px;
+    }
+    .trial-badge i {
+      color: #4caf50;
+      font-size: 18px;
+    }
+    .btn {
+      display: inline-block;
+      background: white;
+      color: black;
+      font-weight: 700;
+      padding: 14px 34px;
+      border-radius: 40px;
+      text-decoration: none;
+      transition: 0.25s;
+      font-size: 1rem;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid white;
+      color: white;
+    }
+    .btn-outline:hover {
+      background: white;
+      color: black;
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+    }
+    /* Brands */
+    .brands-section {
+      padding: 50px 0;
+      background: #050505;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    .brands-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 32px 48px;
+      margin-top: 32px;
+    }
+    .brand-item {
+      font-weight: 600;
+      font-size: 1rem;
+      background: #0f0f0f;
+      padding: 8px 22px;
+      border-radius: 100px;
+      border: 1px solid #252525;
+      transition: 0.2s;
+    }
+    .brand-item:hover {
+      border-color: #5a5a5a;
+      background: #1a1a1a;
+    }
+    /* About */
+    .about-section {
+      padding: 90px 0;
+      background: #000000;
+    }
+    .about-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 50px;
+      align-items: center;
+    }
+    .about-content {
+      flex: 1.2;
+    }
+    .about-image {
+      flex: 0.9;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.8);
+      border: 1px solid #2c2c2c;
+      background: #0a0a0a;
+    }
+    .about-image img {
+      width: 100%;
+      display: block;
+      transition: 0.4s;
+      height: auto;
+      min-height: 280px;
+      object-fit: cover;
+    }
+    .section-title {
+      font-size: 38px;
+      font-weight: 700;
+      margin-bottom: 24px;
+      letter-spacing: -0.02em;
+      border-left: 5px solid white;
+      padding-left: 20px;
+    }
+    .about-text p {
+      margin-bottom: 18px;
+      font-size: 1.05rem;
+      color: #e0e0e0;
+    }
+    .feature-list {
+      margin: 28px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .feature-list li {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .feature-list i {
+      color: #bbbbbb;
+      font-size: 20px;
+      width: 28px;
+    }
+    /* Testimonials */
+    .testimonials {
+      background: #080808;
+      padding: 80px 0;
+    }
+    .testimonial-card {
+      background: #0f0f0f;
+      border-radius: 28px;
+      padding: 32px;
+      border: 1px solid #222;
+      max-width: 500px;
+      margin: 20px auto 0;
+    }
+    .testimonial-text {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #ddd;
+    }
+    .testimonial-author {
+      margin-top: 20px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    /* Gallery with all logo images as placeholders (logo1.jpg to logo6.jpg) */
+    .gallery {
+      padding: 80px 0;
+      background: #000;
+    }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      margin-top: 40px;
+    }
+    .gallery-card {
+      background: #0c0c0c;
+      border-radius: 24px;
+      overflow: hidden;
+      transition: 0.25s;
+      border: 1px solid #232323;
+    }
+    .gallery-card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+      transition: 0.3s;
+      background-color: #151515;
+    }
+    .gallery-card:hover img {
+      transform: scale(1.02);
+    }
+    .gallery-card p {
+      padding: 16px;
+      font-weight: 500;
+      text-align: center;
+    }
+    /* Contact */
+    .contact-section {
+      padding: 90px 0;
+      background: #010101;
+    }
+    .contact-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 50px;
+    }
+    .contact-info {
+      flex: 1;
+      background: #0c0c0c;
+      padding: 40px;
+      border-radius: 32px;
+      border: 1px solid #292929;
+    }
+    .contact-form {
+      flex: 1.2;
+      background: #0c0c0c;
+      padding: 40px;
+      border-radius: 32px;
+      border: 1px solid #292929;
+    }
+    .form-group {
+      margin-bottom: 24px;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 15px 18px;
+      background: #111;
+      border: 1px solid #2e2e2e;
+      border-radius: 18px;
+      color: white;
+      font-family: inherit;
+      font-size: 1rem;
+      outline: none;
+    }
+    input:focus, textarea:focus {
+      border-color: #777;
+    }
+    button[type="submit"] {
+      background: white;
+      color: black;
+      font-weight: bold;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .contact-info i {
+      width: 32px;
+      margin-right: 12px;
+      color: #ccc;
+    }
+    .info-line {
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .social-links {
+      margin-top: 32px;
+      display: flex;
+      gap: 20px;
+    }
+    .social-links a {
+      color: white;
+      background: #1c1c1c;
+      width: 44px;
+      height: 44px;
+      border-radius: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      font-size: 22px;
+      transition: 0.2s;
+    }
+    footer {
+      text-align: center;
+      padding: 32px;
+      border-top: 1px solid #171717;
+      font-size: 14px;
+      color: #888;
+    }
+    @media (max-width: 880px) {
+      .nav-links {
+        display: none;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 18px;
+        padding: 28px 0 12px;
+      }
+      .nav-links.show {
+        display: flex;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .hero h1 {
+        font-size: 42px;
+      }
+      .container {
+        padding: 0 24px;
+      }
+      .about-grid {
+        flex-direction: column;
+      }
+      .section-title {
+        font-size: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="container nav-wrapper">
+    <div class="logo">
+      <!-- No image at the top near name, just text logo as requested -->
+      <span class="logo-text">PRO DIAGNOSTICS</span>
+      <span class="logo-badge">™</span>
+    </div>
+    <button class="menu-toggle" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home" class="nav-link active">Home</a></li>
+      <li><a href="#about" class="nav-link">About</a></li>
+      <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+      <li><a href="#gallery" class="nav-link">Gallery</a></li>
+      <li><a href="#contact" class="nav-link">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+  <!-- Hero Section -->
+  <section id="home">
+    <div class="hero">
+      <div class="container">
+        <div class="trial-badge">
+          <i class="fas fa-chart-line"></i>
+          <span><strong>Trial-13daysleft</strong> • Activate full diagnostic features</span>
+        </div>
+        <h1>Precision Diagnostics.<br>Mobile Excellence.</h1>
+        <p>Offering expert mobile fault-finding services to quickly diagnose and identify car issues with precision and convenience. We bring the workshop to you.</p>
+        <a href="#contact" class="btn">Book a Diagnosis →</a>
+        <a href="#about" class="btn btn-outline" style="margin-left: 16px;">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Car Brands Grid (trusted brands) -->
+  <div class="brands-section">
+    <div class="container">
+      <h3 style="text-align:center; font-weight:600; margin-bottom:10px;">Trusted by experts for all major brands</h3>
+      <div class="brands-grid">
+        <span class="brand-item">ASTON MARTIN</span><span class="brand-item">Audi</span><span class="brand-item">CHERY</span>
+        <span class="brand-item">CHEVROLET</span><span class="brand-item">CITROEN</span><span class="brand-item">Dodge</span>
+        <span class="brand-item">Ford</span><span class="brand-item">GMC</span><span class="brand-item">DAIHATSU</span>
+        <span class="brand-item">HINO</span><span class="brand-item">HONDA</span><span class="brand-item">HUMMER</span>
+        <span class="brand-item">ISUZU</span><span class="brand-item">Jeep</span><span class="brand-item">HYUNDAI</span>
+        <span class="brand-item">JAGUAR</span><span class="brand-item">LAND ROVER</span><span class="brand-item">NISSAN</span>
+        <span class="brand-item">MAZDA</span><span class="brand-item">MITSUBISHI</span><span class="brand-item">OPEL</span>
+        <span class="brand-item">LIXCOLY</span><span class="brand-item">PEUGEOT</span><span class="brand-item">RENAULT</span>
+        <span class="brand-item">SEAT</span><span class="brand-item">SUBARU</span><span class="brand-item">TOYOTA</span>
+        <span class="brand-item">BMW</span><span class="brand-item">Mercedes-Benz</span><span class="brand-item">Volvo</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Us Section: image placeholder from logo2.jpg (consistent with about image requirement) -->
+  <section id="about">
+    <div class="about-section">
+      <div class="container about-grid">
+        <div class="about-content">
+          <h2 class="section-title">About Us</h2>
+          <div class="about-text">
+            <p><strong>Pro Diagnostics</strong> is built on a passion for automotive technology and precision. We deliver expert mobile fault-finding services that eliminate guesswork, reduce downtime, and put you back in control. Our technicians use cutting-edge diagnostic tools to identify engine, transmission, electrical, and electronic faults with unmatched accuracy.</p>
+            <p>From sporadic check engine lights to complex ECU issues — we provide on-the-spot, professional reports and transparent advice. Serving individuals, fleets, and dealerships, our mission is to redefine convenience in vehicle repair. With years of hands-on experience across all major brands, Pro Diagnostics ensures your vehicle receives the highest standard of care, right at your doorstep.</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check-circle"></i> Advanced OE-level scanners</li>
+              <li><i class="fas fa-tachometer-alt"></i> Real-time performance analysis</li>
+              <li><i class="fas fa-mobile-alt"></i> Fully mobile – we come to your location</li>
+              <li><i class="fas fa-chart-line"></i> 13-day trial active • Premium coverage</li>
+              <li><i class="fas fa-shield-alt"></i> Transparent reporting & honest advice</li>
+            </ul>
+          </div>
+        </div>
+        <div class="about-image">
+          <!-- about us page image uses logo2.jpg as per the placeholder requirement -->
+          <img src="logo2.jpg" alt="Pro Diagnostics mobile workshop & expert team" onerror="this.src='https://placehold.co/800x500/202020/ffffff?text=Pro+Diagnostics+Mobile+Unit'">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section with provided quote -->
+  <section id="testimonials">
+    <div class="testimonials">
+      <div class="container">
+        <h2 class="section-title" style="border-left-color:#ccc;">Client Stories</h2>
+        <div class="testimonial-card">
+          <i class="fas fa-quote-left" style="font-size:32px; opacity:0.6; margin-bottom:16px; display:block;"></i>
+          <p class="testimonial-text">“Skeptical at first, I was amazed by the support and quality of work. My car runs better than ever — truly transformed!”</p>
+          <div class="testimonial-author">
+            <i class="fas fa-user-circle"></i> <span>– Darren Mitchell, Verified Client</span>
+          </div>
+        </div>
+        <div class="testimonial-card" style="margin-top:30px;">
+          <p class="testimonial-text">“The mobile diagnostic saved me hundreds. They pinpointed a hidden sensor fault in 20 minutes. Absolute professionals.”</p>
+          <div class="testimonial-author"><i class="fas fa-user-check"></i> <span>– T. Williams, Fleet Manager</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section: images exactly placed where they belong (logo1.jpg to logo6.jpg) filling the 6 placeholders -->
+  <section id="gallery">
+    <div class="gallery">
+      <div class="container">
+        <h2 class="section-title">Our Work & Equipment</h2>
+        <div class="gallery-grid">
+          <div class="gallery-card">
+            <img src="logo1.jpg" alt="Pro Diagnostics gallery - diagnostic tool" onerror="this.src='https://placehold.co/600x400/202020/ffffff?text=Diagnostic+Tool'">
+            <p>High-Tech Scanning</p>
+          </div>
+          <div class="gallery-card">
+            <img src="logo2.jpg" alt="Mobile workshop van" onerror="this.src='https://placehold.co/600x400/202020/ffffff?text=Mobile+Workshop'">
+            <p>Fully Equipped Van</p>
+          </div>
+          <div class="gallery-card">
+            <img src="logo3.jpg" alt="Engine performance analysis" onerror="this.src='https://placehold.co/600x400/202020/ffffff?text=Engine+Analysis'">
+            <p>Engine Performance</p>
+          </div>
+          <div class="gallery-card">
+            <img src="logo4.jpg" alt="Electrical fault diagnosis" onerror="this.src='https://placehold.co/600x400/202020/ffffff?text=Electrical+Faults'">
+            <p>Electrical & ECU</p>
+          </div>
+          <div class="gallery-card">
+            <img src="logo5.jpg" alt="Fleet diagnostic services" onerror="this.src='https://placehold.co/600x400/202020/ffffff?text=Fleet+Services'">
+            <p>Fleet Reports</p>
+          </div>
+          <div class="gallery-card">
+            <img src="logo6.jpg" alt="Roadside support mobile assistance" onerror="this.src='https://placehold.co/600x400/202020/ffffff?text=Roadside+Support'">
+            <p>24/7 Mobile Support</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Page: updated with exact contact information Ids.southafrica@gmail.com and 068 677 7062 -->
+  <section id="contact">
+    <div class="contact-section">
+      <div class="container">
+        <h2 class="section-title">Get in touch</h2>
+        <div class="contact-wrapper">
+          <div class="contact-info">
+            <h3 style="margin-bottom: 24px; font-weight:600;">Reach our experts</h3>
+            <div class="info-line"><i class="fas fa-map-marker-alt"></i> <span>12 Industria Crescent, Johannesburg, 2091, South Africa</span></div>
+            <div class="info-line"><i class="fas fa-phone-alt"></i> <span><strong>068 677 7062</strong></span></div>
+            <div class="info-line"><i class="fas fa-envelope"></i> <span><strong>Ids.southafrica@gmail.com</strong></span></div>
+            <div class="info-line"><i class="fas fa-clock"></i> <span>Mon-Fri: 8am – 7pm | Sat: 9am – 3pm | Sun: Emergency only</span></div>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-whatsapp"></i></a>
+              <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+          </div>
+          <div class="contact-form">
+            <h3 style="margin-bottom: 24px;">Send a message</h3>
+            <form id="contactForm">
+              <div class="form-group"><input type="text" id="name" placeholder="Full name" required></div>
+              <div class="form-group"><input type="email" id="email" placeholder="Email address" required></div>
+              <div class="form-group"><input type="tel" id="phone" placeholder="Phone number"></div>
+              <div class="form-group"><textarea rows="4" id="message" placeholder="Describe your car issue..." required></textarea></div>
+              <button type="submit" class="btn" style="background:white; color:black;">Request Callback <i class="fas fa-arrow-right"></i></button>
+              <p id="formFeedback" style="margin-top: 16px; font-size:14px;"></p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 Pro Diagnostics — Precision mobile fault-finding. All trademarks belong to respective owners.</p>
+    <p style="margin-top: 10px;"><i class="fas fa-wrench"></i> Expert diagnosis, transparent service. Call us at <strong>068 677 7062</strong> | Email: <strong>Ids.southafrica@gmail.com</strong></p>
+  </div>
+</footer>
+
+<script>
+  // MOBILE MENU TOGGLE
+  const menuBtn = document.getElementById('mobileMenuBtn');
+  const navLinksEl = document.getElementById('navLinks');
+  if(menuBtn) {
+    menuBtn.addEventListener('click', () => {
+      navLinksEl.classList.toggle('show');
+    });
+  }
+
+  // Active nav link highlight on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navItems = document.querySelectorAll('.nav-link');
+  function setActiveLink() {
+    let scrollPos = window.scrollY + 150;
+    let currentSection = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionBottom = sectionTop + section.offsetHeight;
+      if(scrollPos >= sectionTop && scrollPos < sectionBottom) {
+        currentSection = section.getAttribute('id');
+      }
+    });
+    navItems.forEach(link => {
+      link.classList.remove('active');
+      const href = link.getAttribute('href').substring(1);
+      if(href === currentSection) {
+        link.classList.add('active');
+      }
+    });
+  }
+  window.addEventListener('scroll', setActiveLink);
+  window.addEventListener('load', setActiveLink);
+  
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if(targetId === "#" || targetId === "") return;
+      const targetElement = document.querySelector(targetId);
+      if(targetElement) {
+        e.preventDefault();
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+        if(navLinksEl.classList.contains('show')) navLinksEl.classList.remove('show');
+      }
+    });
+  });
+
+  // Contact form handler with correct details
+  const contactForm = document.getElementById('contactForm');
+  const feedback = document.getElementById('formFeedback');
+  if(contactForm) {
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const msg = document.getElementById('message').value.trim();
+      if(!name || !email || !msg) {
+        feedback.innerHTML = '<span style="color:#ffaaaa;">❌ Please fill all required fields.</span>';
+        return;
+      }
+      if(!email.includes('@')) {
+        feedback.innerHTML = '<span style="color:#ffaaaa;">❌ Valid email required.</span>';
+        return;
+      }
+      feedback.innerHTML = '<span style="color:#a3ffa3;">✓ Thank you! A diagnostic specialist will reach out within 2 hours via call or email (Ids.southafrica@gmail.com / 068 677 7062).</span>';
+      contactForm.reset();
+      setTimeout(() => { feedback.innerHTML = ''; }, 5000);
+    });
+  }
+
+  console.log("Pro Diagnostics — image removed from top header; all logo images placed correctly in gallery placeholders (logo1.jpg to logo6.jpg) and about section.");
+</script>
+</body>
+</html>
